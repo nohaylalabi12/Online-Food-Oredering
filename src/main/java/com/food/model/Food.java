@@ -4,6 +4,8 @@ import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
+import com.food.model.Category;
+
 
 import java.util.ArrayList;
 import java.util.Date;
@@ -33,7 +35,7 @@ public class Food {
     private boolean available;
 
     @ManyToOne // a restauret have many food
-    private Restaurent restaurent;  // which restauret provides this food
+    private Restaurent F;  // which restauret provides this food
 
     private boolean isVegetarien;
 
@@ -44,4 +46,7 @@ public class Food {
 
     private Date creationDate;
 
+    @ManyToOne
+    @JoinColumn(name = "restaurent_id")
+    private Restaurent restaurent;
 }

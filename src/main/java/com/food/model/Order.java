@@ -23,7 +23,7 @@ public class Order {
     private User customer;
 
     @JsonIgnore
-    @ManyToOne // oe resto have mutiple order
+    @ManyToOne // 1 resto has mutiple order
     private  Restaurent restaurent;
 
     private Long totalAmount;
