@@ -19,22 +19,25 @@ import java.util.Collections;
 @Configuration
 @EnableWebSecurity
 public class AppConfig {
+    @Bean
     SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception{
-       http.sessionManagement(managment ->managment.sessionCreationPolicy(SessionCreationPolicy.STATELESS))
+       http.sessionManagement(managment->managment.sessionCreationPolicy(SessionCreationPolicy.STATELESS))
                .authorizeHttpRequests(Authorize->Authorize
                        .requestMatchers("/api/admin/**").hasAnyRole("RESTAURANT_OWENER","ADMIN")
-                       .requestMatchers("/api/**").authenticated()
+                       //.requestMatchers("/api/**").authenticated()
                        .anyRequest().permitAll()
                ).addFilterBefore(new JwtTokenValidator(), BasicAuthenticationFilter.class)
                .csrf(csrf->csrf.disable())
                .cors(cors->cors.configurationSource(corsConfigrationSource()));
 
-        return null;
+
+               return http.build();
     }
 
     private CorsConfigurationSource corsConfigrationSource() {
         return new CorsConfigurationSource() {
             @Override
+            @Bean
             public CorsConfiguration getCorsConfiguration(HttpServletRequest request) {
               CorsConfiguration cfg = new CorsConfiguration();
               cfg.setAllowedOrigins(Arrays.asList(
@@ -45,7 +48,7 @@ public class AppConfig {
               cfg.setAllowedHeaders(Collections.singletonList("*"));
               cfg.setExposedHeaders(Arrays.asList("Authorization"));
               cfg.setMaxAge(3600L);
-                return null;
+                return cfg;
             }
         };
     }

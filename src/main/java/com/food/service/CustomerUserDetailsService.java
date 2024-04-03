@@ -5,6 +5,7 @@ import com.food.model.User;
 import com.food.repository.UserRepository;
 import lombok.Data;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.annotation.Bean;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
@@ -17,11 +18,11 @@ import java.util.List;
 @Data
 
 @Service
-
 public class CustomerUserDetailsService implements UserDetailsService {
     @Autowired
     private UserRepository userRepository;
     @Override
+
     public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
         User user = userRepository.findByEmail(username);
         if(user==null){

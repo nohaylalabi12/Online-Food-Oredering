@@ -1,8 +1,8 @@
 package com.food.model;
 
 public enum USER_ROLE {
-    CUSTOMER,
-    RESTAURANT_OWENER,
-    ADMIN,
-    LIVREUR
+    ROLE_CUSTOMER,
+    ROLE_RESTAURANT_OWENER,
+    ROLE_ADMIN,
+    ROLE_LIVREUR
 }
