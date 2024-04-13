@@ -102,11 +102,20 @@ public class RestaurentServiceImpl implements RestaurentService{
         dto.setImages(restaurent.getImages());
         dto.setTitle(restaurent.getName());
         dto.setId(restaurentId);
-
-        if(user.getFavorites().contains(dto)){
-            user.getFavorites().remove(dto);
+        boolean isFavorited = false;
+        List<RestaurentDto> favorites = user.getFavorites();
+        for(RestaurentDto favorite : favorites){
+            if(favorite.getId().equals(restaurentId)){
+                isFavorited = true;
+                break;
+            }
         }
-        else user.getFavorites().add(dto);
+       if(isFavorited){
+           favorites.removeIf(favorite -> favorite.getId().equals(restaurentId));
+       }
+       else{
+           favorites.add(dto);
+       }
         userRepository.save(user);
         return dto;
     }
@@ -114,7 +123,7 @@ public class RestaurentServiceImpl implements RestaurentService{
     @Override
     public Restaurent updateRestaurentstatus(Long id) throws Exception {
         Restaurent restaurent = findRestaurentById(id);
-        restaurent.setOpen(restaurent.isOpen());
+        restaurent.setOpen(!restaurent.isOpen());
         return restaurentRepository.save(restaurent);
     }
 }
