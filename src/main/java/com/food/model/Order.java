@@ -21,6 +21,9 @@ public class Order {
 
     @ManyToOne  // many order have the same order
     private User customer;
+    @ManyToOne
+    private User deliveryUser;
+
 
     @JsonIgnore
     @ManyToOne // 1 resto has mutiple order
@@ -36,11 +39,11 @@ public class Order {
     private List<OrderItem> items;
 
    // private Payement payement;
-
+    private String orderStatus;
 
     private int totalItem;
 
-    private int totalPrice;
+    private Long totalPrice;
 
 
 }

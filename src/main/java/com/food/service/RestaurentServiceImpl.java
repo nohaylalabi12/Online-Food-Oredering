@@ -110,12 +110,12 @@ public class RestaurentServiceImpl implements RestaurentService{
                 break;
             }
         }
-       if(isFavorited){
-           favorites.removeIf(favorite -> favorite.getId().equals(restaurentId));
-       }
-       else{
-           favorites.add(dto);
-       }
+        if(isFavorited){
+            favorites.removeIf(favorite -> favorite.getId().equals(restaurentId));
+        }
+        else{
+            favorites.add(dto);
+        }
         userRepository.save(user);
         return dto;
     }
