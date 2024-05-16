@@ -14,10 +14,14 @@ import org.springframework.web.bind.annotation.RestController;
 @RestController
 @RequestMapping("/api/users")
 public class UserController {
-    @Autowired
-    private UserService userService;
+    private final UserService userService;
+
+    public UserController(UserService userService) {
+        this.userService = userService;
+    }
+
     @GetMapping("/profile")
-    //@PreAuthorize("hasAuthority('ADMIN')")
+    
     public ResponseEntity<User> findUserByJwtToken(@RequestHeader("Authorization") String jwt) throws Exception {
        User user  = userService.findUserByJwtToken(jwt);
        return  new ResponseEntity<>(user, HttpStatus.OK);
